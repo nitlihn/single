@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Babushka</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300|Lora|Roboto:700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #b9c4ad;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            color: #e2e8e5;
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+        }
+
+        nav {
+            text-align: center;
+
+        }
+
+        .filter {
+            font-family: 'Roboto', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: white;
+            background-color: #b9c4ad;
+            border: none;
+            font-size: 16px;
+            margin: 17px;
+        }
+
+        .filter:hover {
+            background-color: #e2e8e5;
+        }
+
+        img {
+            width: 80%;
+            margin: 20px;
+            border: 3px solid #ebebeb;
+
+        }
+
+
+        .liste {
+            text-align: center;
+            font-family: 'Lato', sans-serif;
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: repeat(1, 1fr);
+            max-width: 1080px;
+            margin: 0 auto;
+            /*color: #e2e8e5;*/
+        }
+
+        article:nth-child(even) {
+            background-color: #e5e4e0;
+        }
+
+        article:nth-child(odd) {
+            background-color: #e5e4e0;
+        }
+
+        @media screen and (min-width:600px) {
+            .liste {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (min-width:960px) {
+            .liste {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        #info {
+            display: flex;
+            justify-content: center;
+            background-color: #b9c4ad;
+            margin: 10px;
+
+        }
+
+        #info p {
+            margin: 30px;
+            font-family: 'Roboto', sans-serif;
+            color: #5c5c5c;
+        }
+
+        #popup {
+            position: fixed;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, .7);
+            display: none;
+            overflow: scroll;
+
+        }
+
+        .indhold {
+            font-family: 'Lato', sans-serif;
+            width: 38vw;
+            min-height: 40vh;
+            background-color: #ebebeb;
+            margin: 4rem auto;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .luk {
+            position: fixed;
+            right: 0;
+            font-size: 2rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <main id="single">
+        <button class="luk">Tilbage</button>
+        <section class="indhold">
+            <article class="menu">
+                <h2></h2>
+                <img class="billede" src="" alt="">
+                <p class="menukort"></p>
+                <p class="pris"></p>
+            </article>
+        </section>
+    </main>
+    <script>
+        let urlParams = new URLSearchParams(window.location.search);
+        let ret = urlParams.get("ret");
+
+        document.addEventListener("DOMContentLoaded", getJson);
+
+        async function getJson() {
+            let jsonData = await fetch("https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json");
+            console.log("jsonData", jsonData);
+            retter = await jsonData.json();
+            console.log("retter", retter);
+            document.querySelector(".luk").addEventListener("click", () => {
+                history.back()
+            });
+            start();
+        }
+
+        function start() {
+
+            retter.feed.entry.forEach((retter) => {
+                if (retter.gsx$navn.$t == ret) {
+                    document.querySelector("h2").textContent = retter.gsx$navn.$t;
+                    document.querySelector(".pris").textContent = `${retter.gsx$pris.$t},-`;
+                    document.querySelector(".menukort").textContent = retter.gsx$lang.$t;
+                    document.querySelector("img").src = `large/${retter.gsx$billede.$t}.jpg`;
+                }
+            })
+        }
+
+    </script>
+</body>
+
+</html>
