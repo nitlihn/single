@@ -141,8 +141,8 @@
 
         .luk {
             position: fixed;
-            right: 390px;
-            top: 75px;
+            right: 389px;
+            top: 80px;
             font-size: 2rem;
             font-family: 'Lato', sans-serif;
             border: none;
@@ -255,7 +255,7 @@
             document.querySelector("#popup .luk").addEventListener("click", lukSingle);
 
             document.querySelector(".menu h2").textContent = retter.gsx$navn.$t;
-            document.querySelector(".menu .pris").textContent = retter.gsx$pris.$t;
+            document.querySelector(".menu .pris").textContent = `${retter.gsx$pris.$t},-`;
             document.querySelector(".menu .menukort").textContent = retter.gsx$lang.$t;
             document.querySelector(".menu img").src = `large/${retter.gsx$billede.$t}.jpg`;
         }
