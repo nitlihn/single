@@ -12,6 +12,30 @@
             background-color: #b9c4ad;
         }
 
+        #splash {
+            width: 100vw;
+            height: 100vw;
+            background-image: url(img/traditional-russian-food-.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        @media only screen and (min-width: 500px) {
+            #splash {
+                width: 100vw;
+                height: 91vh;
+                background-position: 40% 40%;
+            }
+        }
+
+        @media only screen and (max-width: 500px) {
+            #spalsh {
+                width: 100vw;
+                height: 86.25vw;
+                background-position: 50% 50%;
+            }
+        }
+
         h1 {
             text-align: center;
             font-size: 3rem;
@@ -124,6 +148,7 @@
 </head>
 
 <body>
+   <section id="splash"></section>
     <nav>
         <button class="filter valgt" data-kategori="alle">ALLE</button>
         <button class="filter" data-kategori="forretter">FORRETTER</button>
@@ -131,6 +156,7 @@
         <button class="filter" data-kategori="desserter">DESSERTER</button>
         <button class="filter" data-kategori="drikkevarer">DRIKKEVARER</button>
     </nav>
+
     <h1>MENU</h1>
     <template>
         <article>
